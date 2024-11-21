@@ -1,31 +1,49 @@
-begin
-ecommercemanagement.automaticinsertcustomers(20);
-ecommercemanagement.automaticinsertproducts (30);
-end;
+-- Test Script for EcommerceManagement Package
 
-declare 
-v_products ecommercemanagement.productDetailsList;
+SET SERVEROUTPUT ON;
 
-begin 
+BEGIN
+    -- Insert 5 random customers
+    EcommerceManagement.automaticInsertCustomers(5);
+    DBMS_OUTPUT.PUT_LINE('Inserted 5 customers.');
 
---place an order
-v_products(1).product_id := 50;
-v_products(1).quantity:=2;
-v_products(2).product_id := 53;
-v_products(2).quantity:=1;
-ecommercemanagement.palceAnOrder(1000,v_products);
-end;
+    -- Insert 10 random products
+    EcommerceManagement.automaticInsertProducts(10);
+    DBMS_OUTPUT.PUT_LINE('Inserted 10 products.');
 
-set SERVEROUTPUT ON
+    -- Test placing an order
+    DECLARE
+        orderDetails EcommerceManagement.productDetailsList;
+    BEGIN
+        orderDetails(1).Product_id := 51;
+        orderDetails(1).Quantity := 2;
 
-begin 
-ecommercemanagement.ProcessPayment(100,154);
-end;
+        orderDetails(2).Product_id := 52;
+        orderDetails(2).Quantity := 1;
 
-set SERVEROUTPUT ON;
+        EcommerceManagement.palceAnOrder(1001, orderDetails);
+    END;
 
-begin 
-ecommercemanagement.ReplenishStock(50,4);
-end;
+    DBMS_OUTPUT.PUT_LINE('Order placed.');
 
+    -- Test checking order status
+    DECLARE
+        v_status VARCHAR(20);
+    BEGIN
+        v_status := EcommerceManagement.CheckOrderStatus(101);
+        DBMS_OUTPUT.PUT_LINE('Order Status: ' || v_status);
+    END;
 
+    -- Test processing payment
+    BEGIN
+        EcommerceManagement.ProcessPayment(101, 300); -- Replace with actual order ID and amount
+    END;
+
+    -- Test replenishing stock
+    BEGIN
+        EcommerceManagement.ReplenishStock(51, 100);
+        DBMS_OUTPUT.PUT_LINE('Stock replenished.');
+    END;
+
+END;
+/
