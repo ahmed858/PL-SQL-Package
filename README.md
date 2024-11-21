@@ -2,6 +2,7 @@
 Ecommerce PL/SQL Package
 
 
+
 # 1- Ecommerce DB Creation.sql
 This script handles the database schema setup:
 
@@ -43,5 +44,9 @@ Validates the order, processes payment if the amount matches, and updates the pa
 ## 4. ReplenishStock:
 Updates the stock of a specific product.
 
+# Instructions for Running the Test
+1. Execute Ecommerce DB Creation.sql to set up the database schema.
+2. Execute the package specification and body scripts.
+3. Run testing.sql to validate the package functionality.
 
 ### The package body is logically implemented and uses SQL%ROWCOUNT, FOR LOOP, and error handling appropriately.
